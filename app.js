@@ -38,25 +38,41 @@ const joinValues = () => {
 
 
 const solve = () => {
+    joinValues()
+    const data = submission.join('')
+    console.log('data', data)
 
-    var options = {
+    fetch('http://localhost:8000/solve', {
         method: 'POST',
-        url: 'https://solve-sudoku.p.rapidapi.com/',
         headers: {
-            'content-type': 'application/json',
-            'x-rapidapi-host': 'solve-sudoku.p.rapidapi.com',
-            'x-rapidapi-key': process.env.RAPID_API_KEY
-        },
-        data: {
-            puzzle: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
-    };
+    }).then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => {
+            console.error('Error', error)
+        })
 
-    axios.request(options).then(function (response) {
-        console.log(response.data);
-    }).catch(function (error) {
-        console.error(error);
-    });
+    // var options = {
+    //     method: 'POST',
+    //     url: 'https://solve-sudoku.p.rapidapi.com/',
+    //     headers: {
+    //         'content-type': 'application/json',
+    //         'x-rapidapi-host': 'solve-sudoku.p.rapidapi.com',
+    //         'x-rapidapi-key': process.env.RAPID_API_KEY
+    //     },
+    //     data: {
+    //         puzzle: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    //     }
+    // };
+    //
+    // axios.request(options).then(function (response) {
+    //     console.log(response.data);
+    // }).catch(function (error) {
+    //     console.error(error);
+    // });
+
 }
 
 solveButton.addEventListener('click', solve)
